@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  web:
+    build: .
+    restart: on-failure
+    ports:
+      - 5000:5000
+    volumes:
+      - ./:/home/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:11
+    restart: on-failure
+    environment:
+      POSTGRES_DB: doploy
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+volumes:
+  pg-data:
